@@ -137,15 +137,7 @@ curl -X POST "http://127.0.0.1:8000/generate" \
 * The `DejaVuSans.ttf` file must remain in the project root so that the PDF generator can load it.
 * The generated PDF files include Unicode support, so non-ASCII characters work properly.
 
----
 
-### Demo Video
-You can watch the demo of AI Resume Builder below:
-
-<video width="800" controls>
-  <source src="Output%20image/AII%20Resume%20Builder.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
 
 
 ---
