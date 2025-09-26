@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+python-dotenv
+litellm
+markdown2
+fpdf
+beautifulsoup4
+jinja2
+fpdf2
+markdown2
+beautifulsoup4
+python-multipa

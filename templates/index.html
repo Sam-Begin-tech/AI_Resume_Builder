@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Builder</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-input {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .form-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .output-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-left: 4px solid #667eea;
+        }
+        
+        .loading-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        
+        .floating-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .section-divider {
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            height: 2px;
+        }
+    </style>
+</head>
+<body class="min-h-screen gradient-bg">
+    <!-- Header -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <div class="floating-icon inline-block mb-4">
+                <i class="fas fa-file-alt text-6xl text-white opacity-90"></i>
+            </div>
+            <h1 class="text-5xl font-bold text-white mb-4">AI Resume & Cover Letter Builder</h1>
+            <p class="text-xl text-white opacity-90 max-w-2xl mx-auto">Transform your career with AI-powered resume tailoring and professional cover letter generation</p>
+            <div class="section-divider mt-8 max-w-md mx-auto"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Form Section -->
+                <div class="glass-effect rounded-2xl p-8 shadow-2xl">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-edit text-2xl text-indigo-600 mr-3"></i>
+                        <h2 class="text-2xl font-semibold text-gray-800">Build Your Resume</h2>
+                    </div>
+                    
+                    <form id="resumeForm" class="space-y-6" > 
+                        <!-- Base Resume -->
+                        <div class="space-y-2">
+                            <label class="flex items-center text-sm font-medium text-gray-700">
+                                <i class="fas fa-user-circle mr-2 text-indigo-500"></i>
+                                Base Resume
+                                <span class="text-red-500 ml-1">*</span>
+                            </label>
+                            <textarea 
+                                name="base_resume" 
+                                required 
+                                class="form-input w-full h-32 px-4 py-3 rounded-xl resize-none focus:outline-none"
+                                placeholder="Paste your current resume content here..."
+                            ></textarea>
+                        </div>
+
+                        <!-- Job Title -->
+                        <div class="space-y-2">
+                            <label class="flex items-center text-sm font-medium text-gray-700">
+                                <i class="fas fa-briefcase mr-2 text-indigo-500"></i>
+                                Job Title
+                                <span class="text-red-500 ml-1">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                name="job_title" 
+                                required 
+                                class="form-input w-full px-4 py-3 rounded-xl focus:outline-none"
+                                placeholder="e.g., Senior Software Engineer"
+                            >
+                        </div>
+
+                        <!-- Job Description -->
+                        <div class="space-y-2">
+                            <label class="flex items-center text-sm font-medium text-gray-700">
+                                <i class="fas fa-clipboard-list mr-2 text-indigo-500"></i>
+                                Job Description
+                                <span class="text-red-500 ml-1">*</span>
+                            </label>
+                            <textarea 
+                                name="job_description" 
+                                required 
+                                class="form-input w-full h-32 px-4 py-3 rounded-xl resize-none focus:outline-none"
+                                placeholder="Paste the complete job description here..."
+                            ></textarea>
+                        </div>
+
+                        <!-- Company Info -->
+                        <div class="space-y-2">
+                            <label class="flex items-center text-sm font-medium text-gray-700">
+                                <i class="fas fa-building mr-2 text-indigo-500"></i>
+                                Company Information
+                                <span class="text-gray-400 text-xs ml-1">(optional)</span>
+                            </label>
+                            <textarea 
+                                name="company_info" 
+                                class="form-input w-full h-24 px-4 py-3 rounded-xl resize-none focus:outline-none"
+                                placeholder="Company culture, values, recent news..."
+                            ></textarea>
+                        </div>
+
+                        <!-- Model Name -->
+                        <div class="space-y-2">
+                            <label class="flex items-center text-sm font-medium text-gray-700">
+                                <i class="fas fa-robot mr-2 text-indigo-500"></i>
+                                AI Model
+                                <span class="text-gray-400 text-xs ml-1">(optional)</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                name="model_name" 
+                                class="form-input w-full px-4 py-3 rounded-xl focus:outline-none"
+                                placeholder="groq/deepseek-r1-distill-llama-70b"
+                            >
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit" 
+                            class="btn-primary w-full py-4 px-6 rounded-xl text-white font-semibold text-lg shadow-lg hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-indigo-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                            id="generateBtn"
+                        >
+                            <i class="fas fa-magic mr-2"></i>
+                            Generate Resume & Cover Letter
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Results Section -->
+                <div class="space-y-6" style="width: 700px;">
+                    <!-- Tailored Resume -->
+                    <div class="glass-effect rounded-2xl p-8 shadow-2xl">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-alt text-2xl text-green-600 mr-3"></i>
+                                <h2 class="text-2xl font-semibold text-gray-800">Tailored Resume</h2>
+                            </div>
+                            <button 
+                                id="copyResumeBtn" 
+                                class="hidden px-4 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors duration-200"
+                                title="Copy to clipboard"
+                            >
+                                <i class="fas fa-copy mr-1"></i>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="output-card rounded-xl p-6 min-h-[500px]" style="overflow-y: scroll">
+                            <pre id="resumeOutput" class="text-sm text-gray-700 whitespace-pre-wrap font-mono leading-relaxed">
+                                <div class="flex items-center justify-center h-32 text-gray-400">
+                                    <div class="text-center">
+                                        <i class="fas fa-file-alt text-4xl mb-3 opacity-50"></i>
+                                        <p>Your tailored resume will appear here</p>
+                                    </div>
+                                </div>
+                            </pre>
+                        </div>
+                    </div>
+
+                    <!-- Cover Letter -->
+                    <div class="glass-effect rounded-2xl p-8 shadow-2xl">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-2xl text-blue-600 mr-3"></i>
+                                <h2 class="text-2xl font-semibold text-gray-800">Cover Letter</h2>
+                            </div>
+                            <button 
+                                id="copyCoverBtn" 
+                                class="hidden px-4 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors duration-200"
+                                title="Copy to clipboard"
+                            >
+                                <i class="fas fa-copy mr-1"></i>
+                                Copy
+                            </button>
+                        </div>
+                        <div class="output-card rounded-xl p-6 min-h-[500px]" style="overflow-y: scroll">
+                            <pre id="coverOutput" class="text-sm text-gray-700 whitespace-pre-wrap font-mono leading-relaxed">
+                                <div class="flex items-center justify-center h-32 text-gray-400">
+                                    <div class="text-center">
+                                        <i class="fas fa-envelope text-4xl mb-3 opacity-50"></i>
+                                        <p>Your cover letter will appear here</p>
+                                    </div>
+                                </div>
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-16 text-white opacity-75">
+            <p class="text-sm">Powered by AI • Built for Success</p>
+        </div>
+    </div>
+
+    <script>
+        // Loading states and animations
+        function showLoading() {
+            const loadingHTML = `
+                <div class="flex items-center justify-center h-32 text-indigo-600">
+                    <div class="text-center loading-animation">
+                        <i class="fas fa-spinner fa-spin text-4xl mb-3"></i>
+                        <p class="font-medium">Generating your content...</p>
+                    </div>
+                </div>
+            `;
+            $("#resumeOutput").html(loadingHTML);
+            $("#coverOutput").html(loadingHTML);
+            $("#copyResumeBtn, #copyCoverBtn").addClass("hidden");
+        }
+
+        function showError(message) {
+            const errorHTML = `
+                <div class="flex items-center justify-center h-32 text-red-500">
+                    <div class="text-center">
+                        <i class="fas fa-exclamation-triangle text-4xl mb-3"></i>
+                        <p class="font-medium">Error: ${message}</p>
+                    </div>
+                </div>
+            `;
+            $("#resumeOutput").html(errorHTML);
+            $("#coverOutput").html('');
+        }
+
+        // Copy to clipboard functionality
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check mr-1"></i>Copied!';
+                button.classList.add('bg-green-500', 'text-white');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('bg-green-500', 'text-white');
+                }, 2000);
+            });
+        }
+
+        $("#copyResumeBtn").click(function() {
+            const text = $("#resumeOutput").text().trim();
+            if (text && !text.includes('will appear here')) {
+                copyToClipboard(text, this);
+            }
+        });
+
+        $("#copyCoverBtn").click(function() {
+            const text = $("#coverOutput").text().trim();
+            if (text && !text.includes('will appear here')) {
+                copyToClipboard(text, this);
+            }
+        });
+
+        // Form submission
+        $("#resumeForm").submit(function(e){
+            e.preventDefault();
+            
+            // Disable button and show loading
+            $("#generateBtn").prop('disabled', true).html('<i class="fas fa-spinner fa-spin mr-2"></i>Generating...');
+            showLoading();
+
+            $.ajax({
+                url: "/generate",
+                method: "POST",
+                data: $(this).serialize(),
+                success: function(data){
+                    $("#resumeOutput").html(data.tailored_resume);
+
+                    $("#coverOutput").text(data.cover_letter);
+                    $("#copyResumeBtn, #copyCoverBtn").removeClass("hidden");
+                    
+                    // Success animation
+                    $("#resumeOutput, #coverOutput").parent().addClass('animate-pulse');
+                    setTimeout(() => {
+                        $("#resumeOutput, #coverOutput").parent().removeClass('animate-pulse');
+                    }, 1000);
+                },
+                error: function(err){
+                    const errorMessage = err.responseJSON?.error || 'Something went wrong. Please try again.';
+                    showError(errorMessage);
+                },
+                complete: function() {
+                    // Re-enable button
+                    $("#generateBtn").prop('disabled', false).html('<i class="fas fa-magic mr-2"></i>Generate Resume & Cover Letter');
+                }
+            });
+        });
+
+        // Form validation feedback
+        $('input[required], textarea[required]').on('blur', function() {
+            if (!this.value.trim()) {
+                $(this).addClass('border-red-300').removeClass('border-gray-300');
+            } else {
+                $(this).removeClass('border-red-300').addClass('border-gray-300');
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9807a499664fa92c',t:'MTc1ODEwMjAzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
