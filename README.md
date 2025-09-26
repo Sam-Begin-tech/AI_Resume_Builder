@@ -139,7 +139,20 @@ curl -X POST "http://127.0.0.1:8000/generate" \
 
 ---
 
+## 📸 Screenshots
 
+### Python Version
+![Python Version](Output%20image/python%20version.png)
+
+### Web UI Screenshots
+![Web UI - 1](Output%20image/Web%20UI%20-%201.png)
+![Web UI - 2](Output%20image/Web%20UI%20-%202.png)
+![Web UI - 3](Output%20image/Web%20UI%20-%203.png)
+
+### Postman Response
+![Postman Response](Output%20image/Postman%20response.png)
+
+---
 
 ## 📄 License
 
