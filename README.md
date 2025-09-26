@@ -159,11 +159,3 @@ curl -X POST "http://127.0.0.1:8000/generate" \
 
 This project is released under the **MIT License**. Feel free to use, fork, and modify it.
 
-```
-
----
-
-If you like, I can also generate a **preview screenshot** or a **badges section** (build status, license, etc.) to make the README appear more polished for GitHub. Would you like me to add those?
-::contentReference[oaicite:0]{index=0}
-```
-
