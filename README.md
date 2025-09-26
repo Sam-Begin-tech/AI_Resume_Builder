@@ -139,10 +139,19 @@ curl -X POST "http://127.0.0.1:8000/generate" \
 
 ---
 
+### Demo Video
+You can watch the demo of AI Resume Builder below:
+
+<video width="800" controls>
+  <source src="Output%20image/AII%20Resume%20Builder.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+
+---
 ## 📸 Screenshots
 
-### Python Version
-![Python Version](Output%20image/python%20version.png)
+
 
 ### Web UI Screenshots
 ![Web UI - 1](Output%20image/Web%20UI%20-%201.png)
