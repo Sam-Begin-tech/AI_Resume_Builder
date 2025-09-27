@@ -54,20 +54,40 @@ Here’s a polished and properly formatted version of your README section with m
 
 Follow these steps to set up and run the AI Resume Builder application locally.
 
+
 ### 1. Clone the repository
 
 ```bash
 git clone https://github.com/Sam-Begin-tech/AI_Resume_Builder.git
 cd AI_Resume_Builder
-````
 
-### 2. Install dependencies
+````
+### 2. Create a virtual environment
+
+```bash
+python -m venv myenv
+```
+
+Activate the environment:
+
+* On **Windows**:
+
+  ```bash
+  myenv\Scripts\activate
+  ```
+
+* On **Linux/Mac**:
+
+  ```bash
+  source myenv/bin/activate
+  ```
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Set up environment variables
+### 4. Set up environment variables
 
 Create a `.env` file in the root directory and add your API key:
 
